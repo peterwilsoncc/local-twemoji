@@ -1,6 +1,6 @@
 {
-    "name": "peterwilsoncc/wp-plugin-template",
-    "description": "WP Plugin Template.",
+    "name": "peterwilsoncc/local-twemoji",
+    "description": "Local Twemoji.",
     "type": "wordpress-plugin",
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",

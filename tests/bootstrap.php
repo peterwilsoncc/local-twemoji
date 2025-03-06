@@ -30,7 +30,7 @@ require_once "{$_pwcc_tests_directory}/includes/functions.php";
  * Manually load the plugin being tested.
  */
 function _pwcc_tests_manually_load_plugin() {
-	require dirname( __DIR__ ) . '/wp-plugin-template.php';
+	require dirname( __DIR__ ) . '/local-twemoji.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_pwcc_tests_manually_load_plugin' );

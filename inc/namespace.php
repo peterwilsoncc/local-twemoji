@@ -1,14 +1,14 @@
 <?php
 /**
- * WP Plugin Template
+ * Local Twemoji
  *
- * @package           WpPluginTemplate
+ * @package           LocalTwemoji
  * @author            Peter Wilson
  * @copyright         2023 Peter Wilson
  * @license           MIT
  */
 
-namespace PWCC\WpPluginTemplate;
+namespace PWCC\LocalTwemoji;
 
 /**
  * Bootstrap the plugin.

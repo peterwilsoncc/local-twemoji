@@ -1,2 +1,2 @@
-# WP Plugin Template
+# Local Twemoji
 

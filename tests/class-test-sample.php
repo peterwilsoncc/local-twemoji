@@ -2,10 +2,10 @@
 /**
  * Test Template
  *
- * @package PWCC\WpPluginTemplate\Tests
+ * @package PWCC\LocalTwemoji\Tests
  */
 
-namespace PWCC\WpPluginTemplate\Tests;
+namespace PWCC\LocalTwemoji\Tests;
 
 use WP_UnitTestCase;
 
