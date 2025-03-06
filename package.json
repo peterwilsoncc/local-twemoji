@@ -1,0 +1,25 @@
+{
+  "name": "local-twemoji",
+  "version": "1.0.0",
+  "description": "Local Twemoji for WordPress",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterwilsoncc/local-twemoji.git"
+  },
+  "author": "Peter Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterwilsoncc/local-twemoji/issues"
+  },
+  "homepage": "https://github.com/peterwilsoncc/local-twemoji#readme",
+  "devDependencies": {
+    "@twemoji/api": "15.0.3"
+  }
+}
