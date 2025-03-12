@@ -55,9 +55,9 @@ rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE"
 # Get a list of all the SVG files.
 SVG_FILES=$(find "$SCRIPT_DIR/../images/emoji/svg" -type f -name "*.svg")
 
-
-# Do the rest via the PHP script.
+# Generate the entities file
 php "$SCRIPT_DIR/convert-to-entities.php" $SVG_FILES
+
 
 
 # echo $SVG_FILES;
