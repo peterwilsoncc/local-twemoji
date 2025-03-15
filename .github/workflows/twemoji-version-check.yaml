@@ -47,17 +47,18 @@ jobs:
 
       - name: Compare versions.
         id: compare-versions
-        if: steps.check-issue.outputs.issue_number == ''
         run: |
           if [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
             echo "::set-output name=update_required::true";
+          elsif [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
+            echo "::set-output name=update_required::false";
           else
             echo "::set-output name=update_required::false";
           fi
 
       - name: Create issue
         id: create-issue
-        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        if: steps.compare-versions.outputs.update_required == 'true'
         run: |
           echo "Creating issue";
           # Read in content from `.github/version-bump-issue.md`
@@ -76,17 +77,17 @@ jobs:
 
       - name: Run the update script.
         id: run-update
-        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        if: steps.compare-versions.outputs.update_required == 'true'
         run: |
           echo "Running the update script";
-          .bin/tw-version-update.sh;
+          ./bin/tw-version-update.sh;
           git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
           git add .;
           git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
 
       - name: Check if PR is required
         id: check-pr
-        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        if: steps.compare-versions.outputs.update_required == 'true'
         run: |
           echo "Checking if PR is required";
           # Search for existing PR via branch name
