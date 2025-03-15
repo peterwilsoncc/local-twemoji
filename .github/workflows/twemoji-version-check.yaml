@@ -19,18 +19,22 @@ jobs:
         run: |
           CURRENT_VERSION=$(jq -r '.packages["node_modules/@twemoji/api"].version' "package-lock.json");
           echo "Current Twemoji Version: $CURRENT_VERSION";
-          echo $CURRENT_VERSION > $GITHUB_OUTPUT;
+          echo "$CURRENT_VERSION" > $GITHUB_OUTPUT;
 
       - name: Get the latest Twemoji version
+        id: latest-twemoji-version
         run: |
           LATEST_VERSION=$(curl -s https://registry.npmjs.org/@twemoji/api/latest | jq -r '.version');
           echo "Latest Twemoji Version: $LATEST_VERSION";
-          echo $LATEST_VERSION > $GITHUB_OUTPUT;
+          echo "latest_version=${LATEST_VERSION}" >> $GITHUB_OUTPUT;
 
       - name: Check for existing issue
         id: check-issue
+        env:
+          LATEST_VERSION: ${{ steps.latest-twemoji-version.outputs.latest_version }}
         run: |
           echo "Checking for existing issue";
+          $LATEST_VERSION={{ }}
           ISSUE_NUMBER=$(gh issue list --state open --label "twemoji" --title "Update Twemoji to $LATEST_VERSION" --json number --jq '.[0].number');
           # If the issue exists, fail the job.
           if [ -n "$ISSUE_NUMBER" ]; then
