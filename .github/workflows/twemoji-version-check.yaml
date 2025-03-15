@@ -53,14 +53,14 @@ jobs:
           fi
 
       - name: Set up PHP.
-        if: steps.compare-versions.outputs.update_required == 'true'
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
 
       - name: Create issue
         id: create-issue
-        if: steps.compare-versions.outputs.update_required == 'true'
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
         run: |
           echo "Creating issue";
           # Read in content from `.github/version-bump-issue.md`
@@ -79,7 +79,7 @@ jobs:
 
       - name: Run the update script.
         id: run-update
-        if: steps.compare-versions.outputs.update_required == 'true'
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
         run: |
           echo "Running the update script";
           ./bin/tw-version-update.sh;
@@ -92,7 +92,7 @@ jobs:
 
       - name: Check if PR is required
         id: check-pr
-        if: steps.compare-versions.outputs.update_required == 'true'
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
         run: |
           echo "Checking if PR is required";
           # Search for existing PR via branch name
@@ -106,7 +106,7 @@ jobs:
 
       - name: Create pull request.
         id: create-pr
-        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true'
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true' }}
         run: |
           echo "Creating pull request";
           # Read in content from `.github/version-bump-pr.md`
