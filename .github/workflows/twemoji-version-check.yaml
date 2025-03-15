@@ -44,10 +44,10 @@ jobs:
       - name: Compare versions.
         id: compare-versions
         run: |
-          if [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
-            echo "update_required=true" >> $GITHUB_OUTPUT
-          elif [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
+          if [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
             echo "update_required=false" >> $GITHUB_OUTPUT;
+          elif [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
+            echo "update_required=true" >> $GITHUB_OUTPUT
           else
             echo "update_required=false" >> $GITHUB_OUTPUT;
           fi
