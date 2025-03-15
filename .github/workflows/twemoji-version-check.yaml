@@ -87,6 +87,7 @@ jobs:
           git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
           git add .;
           git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
+          git push origin "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
 
       - name: Check if PR is required
         id: check-pr
