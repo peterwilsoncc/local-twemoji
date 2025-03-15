@@ -67,5 +67,5 @@ jobs:
           # Then replace '%%LATEST_VERSION%%' with the latest version
           ISSUE_BODY=$(echo "$ISSUE_BODY" | sed "s/%%LATEST_VERSION%%/${{ steps.latest-twemoji-version.outputs.latest_version }}/g");
           # Create the issue
-          gh issue create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$ISSUE_BODY" --assignee peterwilsoncc --label "dependencies" --label "enhancement";
+          gh issue create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$ISSUE_BODY" --assignee peterwilsoncc;
 
