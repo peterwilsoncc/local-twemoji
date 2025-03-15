@@ -58,7 +58,12 @@ SVG_FILES=$(find "$SCRIPT_DIR/../images/emoji/svg" -type f -name "*.svg")
 # Generate the entities file
 php "$SCRIPT_DIR/convert-to-entities.php" $SVG_FILES
 
+# Copy the JavaScript file to the correct location
+rm "$SCRIPT_DIR/../js/twemoji.js"
+cp "$SCRIPT_DIR/../node_modules/@twemoji/api/dist/twemoji.js" "$SCRIPT_DIR/../js/twemoji.js" --reject-file=- --force
 
+# Apply the patch to the twemoji.js file
+patch "$SCRIPT_DIR/../js/twemoji.js" "$SCRIPT_DIR/twemoji-wp.diff"
 
 # echo $SVG_FILES;
 exit;
