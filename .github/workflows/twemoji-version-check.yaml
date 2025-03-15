@@ -38,9 +38,8 @@ jobs:
           echo "Checking for existing issue";
           ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${LATEST_VERSION}" --json number --jq '.[0].number');
           echo "Issue number: $ISSUE_NUMBER";
-          exit 1;
           # Set the output to the issue number
-          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT;
+          echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
 
       - name: Compare versions.
         id: compare-versions
@@ -76,7 +75,7 @@ jobs:
           # Get the issue number
           ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --json number --jq '.[0].number');
           # Set the output to the issue number
-          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT;
+          echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
 
       - name: Run the update script.
         id: run-update
@@ -119,7 +118,3 @@ jobs:
           PR_BODY=$(echo "$PR_BODY" | sed "s/%%ISSUE_NUMBER%%/${{ steps.check-issue.outputs.issue_number }}/g");
           # Create the pull request
           gh pr create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$PR_BODY" --base main --head update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }} --assignee peterwilsoncc;
-          # Get the pull request number
-          PR_NUMBER=$(gh pr list --search "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --json number --jq '.[0].number');
-          # Set the output to the pull request number
-          echo "::set-output name=pr_number::$PR_NUMBER";
