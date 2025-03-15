@@ -37,9 +37,35 @@ jobs:
         run: |
           echo "Checking for existing issue";
           ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${LATEST_VERSION}" --json number --jq '.[0].number');
-          # If the issue exists, fail the job.
+          # Set the output to the issue number
+          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_ENV;
           if [ -n "$ISSUE_NUMBER" ]; then
             echo "Issue already exists: $ISSUE_NUMBER";
             exit 1;
           fi
+
+      - name: Compare versions.
+        id: compare-versions
+        if: steps.check-issue.outputs.issue_number == ''
+        run: |
+          if [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
+            echo "::set-output name=update_required::true";
+          else
+            echo "::set-output name=update_required::false";
+          fi
+
+      - name: Create issue
+        id: create-issue
+        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        run: |
+          echo "Creating issue";
+          # Read in content from `.github/version-bump-issue.md`
+          ISSUE_BODY=$(cat .github/version-bump-issue.md);
+          # Replace the placeholders with the actual values
+          # First replace '%%CURRENT_VERSION%%' with the current version
+          ISSUE_BODY=$(echo "$ISSUE_BODY" | sed "s/%%CURRENT_VERSION%%/${{ steps.current-twemoji-version.outputs.current_version }}/g");
+          # Then replace '%%LATEST_VERSION%%' with the latest version
+          ISSUE_BODY=$(echo "$ISSUE_BODY" | sed "s/%%LATEST_VERSION%%/${{ steps.latest-twemoji-version.outputs.latest_version }}/g");
+          # Create the issue
+          gh issue create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$ISSUE_BODY" --assignee @${{ github.actor }} --label "dependencies" --label "enhancement";
 
