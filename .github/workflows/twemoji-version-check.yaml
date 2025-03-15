@@ -19,7 +19,7 @@ jobs:
         run: |
           CURRENT_VERSION=$(jq -r '.packages["node_modules/@twemoji/api"].version' "package-lock.json");
           echo "Current Twemoji Version: $CURRENT_VERSION";
-          echo "$CURRENT_VERSION" > $GITHUB_OUTPUT;
+          echo "current_version=${CURRENT_VERSION}" >> $GITHUB_OUTPUT;
 
       - name: Get the latest Twemoji version
         id: latest-twemoji-version
