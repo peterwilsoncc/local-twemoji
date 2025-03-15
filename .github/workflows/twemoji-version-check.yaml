@@ -9,6 +9,8 @@ jobs:
   run:
     name: Twemoji Version Check
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Checkout
