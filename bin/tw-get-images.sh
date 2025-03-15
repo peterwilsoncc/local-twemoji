@@ -60,10 +60,10 @@ php "$SCRIPT_DIR/convert-to-entities.php" $SVG_FILES
 
 # Copy the JavaScript file to the correct location
 rm "$SCRIPT_DIR/../js/twemoji.js"
-cp "$SCRIPT_DIR/../node_modules/@twemoji/api/dist/twemoji.js" "$SCRIPT_DIR/../js/twemoji.js" --reject-file=- --force
+cp "$SCRIPT_DIR/../node_modules/@twemoji/api/dist/twemoji.js" "$SCRIPT_DIR/../js/twemoji.js"
 
 # Apply the patch to the twemoji.js file
-patch "$SCRIPT_DIR/../js/twemoji.js" "$SCRIPT_DIR/twemoji-wp.diff"
+patch "$SCRIPT_DIR/../js/twemoji.js" "$SCRIPT_DIR/twemoji-wp.diff" --force --reject-file=-
 
 # echo $SVG_FILES;
 exit;
