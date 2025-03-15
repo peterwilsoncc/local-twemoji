@@ -34,7 +34,6 @@ jobs:
           LATEST_VERSION: ${{ steps.latest-twemoji-version.outputs.latest_version }}
         run: |
           echo "Checking for existing issue";
-          $LATEST_VERSION={{ }}
           ISSUE_NUMBER=$(gh issue list --state open --label "twemoji" --title "Update Twemoji to $LATEST_VERSION" --json number --jq '.[0].number');
           # If the issue exists, fail the job.
           if [ -n "$ISSUE_NUMBER" ]; then
