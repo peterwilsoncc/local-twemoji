@@ -77,3 +77,46 @@ jobs:
           ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --json number --jq '.[0].number');
           # Set the output to the issue number
           echo "::set-output name=issue_number::$ISSUE_NUMBER";
+
+      - name: Run the update script.
+        id: run-update
+        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        run: |
+          echo "Running the update script";
+          .bin/tw-version-update.sh;
+          git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
+          git add .;
+          git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
+
+      - name: Check if PR is required
+        id: check-pr
+        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-issue.outputs.issue_number == ''
+        run: |
+          echo "Checking if PR is required";
+          # Search for existing PR via branch name
+          PR_NUMBER=$(gh pr list --head update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }} --json number --json number --jq '.[0].number');
+          # If the PR exists, no new PR is required, set output to false
+          if [ -n "$PR_NUMBER" ]; then
+            echo "::set-output name=pr_required::false";
+          else
+            echo "::set-output name=pr_required::true";
+          fi
+
+      - name: Create pull request.
+        id: create-pr
+        if: steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true'
+        run: |
+          echo "Creating pull request";
+          # Read in content from `.github/version-bump-pr.md`
+          PR_BODY=$(cat .github/version-bump-pr.md);
+          # Replace the placeholders with the actual values
+          # Then replace '%%LATEST_VERSION%%' with the latest version
+          PR_BODY=$(echo "$PR_BODY" | sed "s/%%LATEST_VERSION%%/${{ steps.latest-twemoji-version.outputs.latest_version }}/g");
+          # Replace '%%ISSUE_NUMBER%%' with the issue number
+          PR_BODY=$(echo "$PR_BODY" | sed "s/%%ISSUE_NUMBER%%/${{ steps.check-issue.outputs.issue_number }}/g");
+          # Create the pull request
+          gh pr create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$PR_BODY" --base main --head "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}" --assignee peterwilsoncc;
+          # Get the pull request number
+          PR_NUMBER=$(gh pr list --search "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --json number --jq '.[0].number');
+          # Set the output to the pull request number
+          echo "::set-output name=pr_number::$PR_NUMBER";

@@ -1,4 +1,4 @@
-Bumps twemoji.js to %%NEW_VERSION%% and applies WordPress patch.
+Bumps twemoji.js to %%LATEST_VERSION%% and applies WordPress patch.
 
 Fixes #%%ISSUE_NUMBER%%
 
