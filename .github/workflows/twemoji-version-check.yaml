@@ -82,6 +82,8 @@ jobs:
         run: |
           echo "Running the update script";
           ./bin/tw-version-update.sh;
+          git config --global user.email "bot@peterwilson.cc";
+          git config --global user.name "Bot";
           git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
           git add .;
           git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
