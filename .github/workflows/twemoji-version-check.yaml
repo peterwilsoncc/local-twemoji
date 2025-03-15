@@ -1,0 +1,40 @@
+name: Twemoji Version Check.
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    name: Twemoji Version Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get current Twemoji version
+        id: current-twemoji-version
+        run: |
+          CURRENT_VERSION=$(jq -r '.packages["node_modules/@twemoji/api"].version' "package-lock.json");
+          echo "Current Twemoji Version: $CURRENT_VERSION";
+          echo $CURRENT_VERSION > $GITHUB_OUTPUT;
+
+      - name: Get the latest Twemoji version
+        run: |
+          LATEST_VERSION=$(curl -s https://registry.npmjs.org/@twemoji/api/latest | jq -r '.version');
+          echo "Latest Twemoji Version: $LATEST_VERSION";
+          echo $LATEST_VERSION > $GITHUB_OUTPUT;
+
+      - name: Check for existing issue
+        id: check-issue
+        run: |
+          echo "Checking for existing issue";
+          ISSUE_NUMBER=$(gh issue list --state open --label "twemoji" --title "Update Twemoji to $LATEST_VERSION" --json number --jq '.[0].number');
+          # If the issue exists, fail the job.
+          if [ -n "$ISSUE_NUMBER" ]; then
+            echo "Issue already exists: $ISSUE_NUMBER";
+            exit 1;
+          fi
+
