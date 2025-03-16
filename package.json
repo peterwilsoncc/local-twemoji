@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/peterwilsoncc/local-twemoji#readme",
   "devDependencies": {
-    "@twemoji/api": "15.1.0"
+    "@twemoji/api": "15.1.0",
+    "uglify-js": "^3.19.3"
   }
 }
