@@ -13,7 +13,6 @@
     "build:wp-emoji": "uglifyjs --compress --mangle --output js/wp-emoji.min.js js/wp-emoji.js",
     "build:concat": "cat js/twemoji.js js/wp-emoji.js > js/wp-emoji-concat.js",
     "build:concat:min": "uglifyjs --compress --mangle --output js/wp-emoji-concat.min.js js/wp-emoji-concat.js"
-
   },
   "repository": {
     "type": "git",
