@@ -79,16 +79,8 @@ jobs:
           # Issue number is the last part of the URL following the final `/`.
           ISSUE_NUMBER=$(echo $ISSUE_LINK | awk -F/ '{print $NF}');
           echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
-
-
-
           # Set the output to the issue number
           echo "issue_link=${ISSUE_LINK}" >> $GITHUB_OUTPUT;
-
-      - name: Echo issue number.
-        run: |
-          echo "Issue number: ${{ steps.create-issue.outputs.issue_number }}";
-          exit 1;
 
       - name: Run the update script.
         id: run-update
