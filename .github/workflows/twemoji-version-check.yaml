@@ -60,7 +60,7 @@ jobs:
 
       - name: Create issue
         id: create-issue
-        # if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
         run: |
           echo "Creating issue";
           # Read in content from `.github/version-bump-issue.md`
