@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/peterwilsoncc/local-twemoji#readme",
   "devDependencies": {
-    "@twemoji/api": "15.0.3"
+    "@twemoji/api": "15.1.0"
   }
 }
