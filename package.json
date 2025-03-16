@@ -7,7 +7,13 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:twemoji && npm run build:wp-emoji && npm run build:concat && npm run build:concat:min",
+    "build:twemoji": "uglifyjs --compress --mangle --output js/twemoji.min.js js/twemoji.js",
+    "build:wp-emoji": "uglifyjs --compress --mangle --output js/wp-emoji.min.js js/wp-emoji.js",
+    "build:concat": "cat js/twemoji.js js/wp-emoji.js > js/wp-emoji-concat.js",
+    "build:concat:min": "uglifyjs --compress --mangle --output js/wp-emoji-concat.min.js js/wp-emoji-concat.js"
+
   },
   "repository": {
     "type": "git",
