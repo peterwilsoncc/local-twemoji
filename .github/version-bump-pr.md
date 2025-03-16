@@ -1,6 +1,6 @@
 Bumps twemoji.js to %%LATEST_VERSION%% and applies WordPress patch.
 
-Fixes #%%ISSUE_NUMBER%%
+Fixes %%ISSUE_LINK%%
 
 Bot steps:
 

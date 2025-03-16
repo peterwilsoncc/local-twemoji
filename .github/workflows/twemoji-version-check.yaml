@@ -71,11 +71,11 @@ jobs:
           # Then replace '%%LATEST_VERSION%%' with the latest version
           ISSUE_BODY=$(echo "$ISSUE_BODY" | sed "s/%%LATEST_VERSION%%/${{ steps.latest-twemoji-version.outputs.latest_version }}/g");
           # Create the issue
-          gh issue create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$ISSUE_BODY" --assignee peterwilsoncc;
-          # Get the issue number
-          ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --json number --jq '.[0].number');
+          ISSUE_LINK=$(gh issue create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$ISSUE_BODY" --assignee peterwilsoncc;)
+          # Echo the issue link.
+          echo "Issue link: $ISSUE_LINK";
           # Set the output to the issue number
-          echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
+          echo "issue_link=${ISSUE_LINK}" >> $GITHUB_OUTPUT;
 
       - name: Run the update script.
         id: run-update
@@ -114,7 +114,7 @@ jobs:
           # Replace the placeholders with the actual values
           # Then replace '%%LATEST_VERSION%%' with the latest version
           PR_BODY=$(echo "$PR_BODY" | sed "s/%%LATEST_VERSION%%/${{ steps.latest-twemoji-version.outputs.latest_version }}/g");
-          # Replace '%%ISSUE_NUMBER%%' with the issue number
-          PR_BODY=$(echo "$PR_BODY" | sed "s/%%ISSUE_NUMBER%%/${{ steps.create-issue.outputs.issue_number }}/g");
+          # Replace '%%ISSUE_LINK%%' with the issue link
+          PR_BODY=$(echo "$PR_BODY" | sed "s/%%ISSUE_LINK%%/${{ steps.create-issue.outputs.issue_link }}/g");
           # Create the pull request
           gh pr create --title "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}" --body "$PR_BODY" --base main --head update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }} --assignee peterwilsoncc;
