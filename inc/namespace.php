@@ -19,16 +19,6 @@ function bootstrap() {
 }
 
 /**
- * Filters the URL where emoji SVG images are hosted.
- *
- * @param string $url The emoji base URL for svg images.
- * @return string The emoji base URL for svg images.
- */
-function filter_emoji_svg_url( $url ) {
-	return $url;
-}
-
-/**
  * Filter the base Twemoji URL.
  *
  * @return string[] The base Twemoji URL.
