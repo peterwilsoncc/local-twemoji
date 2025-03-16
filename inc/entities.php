@@ -5173,3 +5173,12 @@ function get_partials() {
 		'&#x2195;',
 	);
 }
+
+/**
+ * Get the Twemoji version.
+ *
+ * @return string Version.
+ */
+function get_twemoji_version() {
+	return '15.0.3';
+}

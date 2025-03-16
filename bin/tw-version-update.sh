@@ -56,7 +56,7 @@ rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE"
 SVG_FILES=$(find "$SCRIPT_DIR/../images/emoji/svg" -type f -name "*.svg")
 
 # Generate the entities file
-php "$SCRIPT_DIR/convert-to-entities.php" $SVG_FILES
+php "$SCRIPT_DIR/convert-to-entities.php" $TWEMOJI_LATEST_RELEASE $SVG_FILES
 
 # Copy the JavaScript file to the correct location
 rm "$SCRIPT_DIR/../js/twemoji.js"

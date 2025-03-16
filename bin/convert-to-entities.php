@@ -12,9 +12,12 @@ function doit( $args ) {
 		exit( 1 );
 	}
 
-	// Entities are all but the first argument.
+	// First argument is the script name.
 	$entities = $args;
 	array_shift( $entities );
+
+	// Second argument is the new version number.
+	$new_version = array_shift( $entities );
 
 	// Convert each file to it's base name without the extension.
 	foreach ( $entities as &$file ) {
@@ -121,6 +124,16 @@ function doit( $args ) {
 		},
 		''
 	) . "\t);";
+	$content[] = "}\n";
+
+	// Create the version function.
+	$content[] = '/**';
+	$content[] = ' * Get the Twemoji version.';
+	$content[] = ' *';
+	$content[] = ' * @return string Version.';
+	$content[] = ' */';
+	$content[] = 'function get_twemoji_version() {';
+	$content[] = "\treturn '{$new_version}';";
 	$content[] = "}\n";
 
 	$content = implode( "\n", $content );
