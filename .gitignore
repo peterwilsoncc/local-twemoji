@@ -12,3 +12,7 @@
 # Misc.
 /.phpunit.result.cache
 .DS_Store
+
+# Generated JS Files.
+/js/*.min.js.map
+/js/*.min.js
