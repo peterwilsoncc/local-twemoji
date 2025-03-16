@@ -10,7 +10,7 @@
  * @license           MIT
  */
 
-namespace PWCC\LocalTwemoji\Entities;
+namespace PWCC\LocalTwemoji\Generated;
 
 /**
  * Get the entities.

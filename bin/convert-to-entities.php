@@ -139,7 +139,7 @@ function doit( $args ) {
 	$content = implode( "\n", $content );
 
 	// Write the file.
-	file_put_contents( __DIR__ . '/../inc/entities.php', $content );
+	file_put_contents( __DIR__ . '/../inc/generated.php', $content );
 }
 
 doit( $argv );
