@@ -99,7 +99,7 @@ function pwcc_local_twemoji_doit( $args ) {
 	$content[] = ' * @license           MIT';
 	$content[] = " */\n";
 
-	$content[] = 'namespace PWCC\LocalTwemoji\Entities;';
+	$content[] = 'namespace PWCC\LocalTwemoji\Generated;';
 	$content[] = '';
 
 	$content[] = '/**';
