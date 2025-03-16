@@ -1,10 +1,16 @@
-#!/usr/bin/env php
 <?php
+/**
+ * Convert a list of emoji files to html entities.
+ *
+ * @package LocalTwemoji
+ */
 
 /**
  * Do it.
+ *
+ * @param array $args Script arguments.
  */
-function doit( $args ) {
+function pwcc_local_twemoji_doit( $args ) {
 
 	// If there are no arguments, print usage and exit.
 	if ( empty( $args ) ) {
@@ -142,4 +148,4 @@ function doit( $args ) {
 	file_put_contents( __DIR__ . '/../inc/generated.php', $content );
 }
 
-doit( $argv );
+pwcc_local_twemoji_doit( $argv );
