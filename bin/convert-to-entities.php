@@ -145,6 +145,7 @@ function pwcc_local_twemoji_doit( $args ) {
 	$content = implode( "\n", $content );
 
 	// Write the file.
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- CLI script.
 	file_put_contents( __DIR__ . '/../inc/generated.php', $content );
 }
 
