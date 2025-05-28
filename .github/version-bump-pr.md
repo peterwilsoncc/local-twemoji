@@ -10,9 +10,9 @@ Bot steps:
 
 Human steps:
 
-* [ ] Review patched version to ensure it's applied correctly (update default patch if required).
-* [ ] Version bump the plugin.
+* Version bump the plugin.
    * [ ] Version number in PHP header
    * [ ] Stable version in readme.txt header
+   * [ ] `PLUGIN_VERSION` constant in main namespace file.
 * [ ] Increase WP minimum required version if applicable.
 
