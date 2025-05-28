@@ -12,18 +12,27 @@ use WP_UnitTestCase;
 /**
  * Sample Tests
  */
-class Test_Sample extends WP_UnitTestCase {
+class Test_Twemoji extends WP_UnitTestCase {
 	/**
-	 * Test passing test.
+	 * Test that the plugin is loaded.
 	 */
-	public function test_passing_test() {
-		$this->assertTrue( true );
+	public function test_plugin_loaded() {
+		$this->assertNotEmpty( \PWCC\LocalTwemoji\PLUGIN_VERSION );
 	}
 
 	/**
-	 * Test failing test.
+	 * Test the emoji URL filter.
 	 */
-	public function test_failing_test() {
-		$this->assertTrue( false );
+	public function test_emoji_url_filter() {
+		$actual = get_echo( '_print_emoji_detection_script' );
+
+		$default_url = wp_json_encode( 'https://s.w.org/images/core/emoji/' );
+		$default_url = rtrim( $default_url, '"' );
+
+		$expected_url = wp_json_encode( home_url() );
+		$expected_url = rtrim( $expected_url, '"' );
+
+		$this->assertStringNotContainsString( $default_url, $actual, 's.w.org URL should not be present' );
+		$this->assertStringContainsString( $expected_url, $actual, 'home url is expected to be present' );
 	}
 }
