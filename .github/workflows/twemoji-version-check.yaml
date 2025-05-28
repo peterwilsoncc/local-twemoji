@@ -52,12 +52,6 @@ jobs:
             echo "update_required=false" >> $GITHUB_OUTPUT;
           fi
 
-      - name: Set up PHP.
-        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-
       - name: Create issue
         id: create-issue
         if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
