@@ -58,7 +58,7 @@ jobs:
       - name: Create or get issue
         id: create-issue
         run: |
-          if "${{ steps.compare-versions.outputs.issue_required }}" == 'false'; then
+          if [ "${{ steps.compare-versions.outputs.issue_required }}" == 'false' ]; then
             ISSUE_NUMBER="${{ steps.check-issue.outputs.issue_number }}";
             echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
             echo "No issue required, skipping issue creation.";
