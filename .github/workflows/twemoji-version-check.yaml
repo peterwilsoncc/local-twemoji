@@ -45,16 +45,19 @@ jobs:
         id: compare-versions
         run: |
           if [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
-            echo "update_required=false" >> $GITHUB_OUTPUT;
+            echo "issue_required=false" >> $GITHUB_OUTPUT;
+            echo "update_required=true" >> $GITHUB_OUTPUT;
           elif [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
-            echo "update_required=true" >> $GITHUB_OUTPUT
+            echo "issue_required=true" >> $GITHUB_OUTPUT
+            echo "update_required=true" >> $GITHUB_OUTPUT;
           else
+            echo "issue_required=false" >> $GITHUB_OUTPUT;
             echo "update_required=false" >> $GITHUB_OUTPUT;
           fi
 
       - name: Create issue
         id: create-issue
-        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
+        if: ${{ steps.compare-versions.outputs.issue_required == 'true' }}
         run: |
           echo "Creating issue";
           # Read in content from `.github/version-bump-issue.md`
@@ -76,19 +79,6 @@ jobs:
           # Set the output to the issue number
           echo "issue_link=${ISSUE_LINK}" >> $GITHUB_OUTPUT;
 
-      - name: Run the update script.
-        id: run-update
-        if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
-        run: |
-          echo "Running the update script";
-          ./bin/tw-version-update.sh;
-          git config --global user.email "bot@peterwilson.cc";
-          git config --global user.name "Bot";
-          git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
-          git add .;
-          git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
-          git push origin "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
-
       - name: Check if PR is required
         id: check-pr
         if: ${{ steps.compare-versions.outputs.update_required == 'true' }}
@@ -102,6 +92,19 @@ jobs:
           else
             echo "pr_required=true" >> $GITHUB_OUTPUT;
           fi
+
+      - name: Run the update script.
+        id: run-update
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true' }}
+        run: |
+          echo "Running the update script";
+          ./bin/tw-version-update.sh;
+          git config --global user.email "bot@peterwilson.cc";
+          git config --global user.name "Bot";
+          git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
+          git add .;
+          git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
+          git push origin "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
 
       - name: Create pull request.
         id: create-pr
