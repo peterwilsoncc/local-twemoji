@@ -55,10 +55,15 @@ jobs:
             echo "update_required=false" >> $GITHUB_OUTPUT;
           fi
 
-      - name: Create issue
+      - name: Create or get issue
         id: create-issue
-        if: ${{ steps.compare-versions.outputs.issue_required == 'true' }}
         run: |
+          if "${{ steps.compare-versions.outputs.issue_required }}" == 'false'; then
+            ISSUE_NUMBER="${{ steps.check-issue.outputs.issue_number }}";
+            echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
+            echo "No issue required, skipping issue creation.";
+            exit 0;
+          fi
           echo "Creating issue";
           # Read in content from `.github/version-bump-issue.md`
           ISSUE_BODY=$(cat .github/version-bump-issue.md);
