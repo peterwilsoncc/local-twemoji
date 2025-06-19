@@ -4,7 +4,7 @@
  *
  * @package           LocalTwemoji
  * @author            Peter Wilson
- * @copyright         YYYY Peter Wilson
+ * @copyright         2025 Peter Wilson
  * @license           MIT
  *
  * @wordpress-plugin
