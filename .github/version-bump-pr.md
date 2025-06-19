@@ -5,7 +5,6 @@ Fixes #%%ISSUE_NUMBER%%
 Bot steps:
 
 * [x] Update `package.json` and `package-lock.json` with new version.
-* [x] Apply customizations used by the WordPress project.
 * [x] Update images.
 
 Human steps:
