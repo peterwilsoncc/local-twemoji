@@ -21,6 +21,14 @@ class Test_Twemoji extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the plugin version uses semantic versioning.
+	 */
+	public function test_semantic_versioning() {
+		$version = \PWCC\LocalTwemoji\PLUGIN_VERSION;
+		$this->assertMatchesRegularExpression( '/^\d+\.\d+\.\d+$/', $version, 'Plugin version should be in the format X.Y.Z' );
+	}
+
+	/**
 	 * Test the emoji URL filter.
 	 */
 	public function test_emoji_url_filter() {
