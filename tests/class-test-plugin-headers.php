@@ -2,10 +2,10 @@
 /**
  * Test Plugin Readme and PHP Headers
  *
- * @package PWCC\LocalTwemoji\Headers
+ * @package PWCC\LocalTwemoji\Tests
  */
 
-namespace PWCC\LocalTwemoji\Headers;
+namespace PWCC\LocalTwemoji\Tests;
 
 use WP_UnitTestCase;
 
