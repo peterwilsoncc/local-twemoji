@@ -29,6 +29,19 @@ class Test_Twemoji extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Ensure the Twemoji version is correct.
+	 */
+	public function test_twemoji_version() {
+		$actual = \PWCC\LocalTwemoji\TWEMOJI_VERSION;
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- OK for this test.
+		$packages = json_decode( file_get_contents( __DIR__ . '/../package.json' ), true );
+		$expected = $packages['devDependencies']['@twemoji/api'];
+
+		$this->assertSame( $expected, $actual, 'Twemoji version should match the version in package.json' );
+	}
+
+	/**
 	 * Test the emoji URL filter.
 	 */
 	public function test_emoji_url_filter() {

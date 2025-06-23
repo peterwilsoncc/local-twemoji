@@ -10,7 +10,8 @@
 
 namespace PWCC\LocalTwemoji;
 
-const PLUGIN_VERSION = '1.0.0';
+const PLUGIN_VERSION  = '1.0.0';
+const TWEMOJI_VERSION = '16.0.1';
 
 /**
  * Bootstrap the plugin.
@@ -49,15 +50,15 @@ function filter_emoji_svg_url() {
  * This is to ensure that browsers do not serve cached versions
  * of emoji images following an update to the plugin.
  *
- * The URL of the images does not change, so the plugin version
+ * The URL of the images does not change, so the Twemoji version
  * is appended as a query string parameter.
  *
  * @param string $ext The file extension of the emoji, either .svg or .png.
- * @return string The extension with the plugin version appended as a query string.
+ * @return string The extension with the Twemoji version appended as a query string.
  */
 function extension_cache_busting( $ext ) {
 	/*
-	 * Append the plugin version to the extension as a query string.
+	 * Append the Twemoji version to the extension as a query string.
 	 *
 	 * As the extension is not a full URL it's not possible to use
 	 * `sanitize_url()` here, so we use `sanitize_title()` to ensure
@@ -66,5 +67,5 @@ function extension_cache_busting( $ext ) {
 	 * - dots are converted to hyphens
 	 * - typos are converted/removed to ensure a valid string
 	 */
-	return $ext . '?ver=' . sanitize_title( PLUGIN_VERSION );
+	return $ext . '?ver=' . sanitize_title( TWEMOJI_VERSION );
 }
