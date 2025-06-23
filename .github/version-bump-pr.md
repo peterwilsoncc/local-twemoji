@@ -6,6 +6,7 @@ Bot steps:
 
 * [x] Update `package.json` and `package-lock.json` with new version.
 * [x] Update images.
+* [x] Update `TWEMOJI_VERSION` constant in `namespace.php` file.
 
 Human steps:
 
