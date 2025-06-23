@@ -51,3 +51,13 @@ mv "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE/assets/72x72" "$
 
 # Remove the downloaded directory
 rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE"
+
+# Update the version number in the namespace file.
+echo "Updating version in namespace file"
+NAMESPACE_FILE="$SCRIPT_DIR/../inc/namespace.php"
+if [ -f "$NAMESPACE_FILE" ]; then
+	sed -i.bak "s/const TWEMOJI_VERSION = '.*';/const TWEMOJI_VERSION = '$TWEMOJI_LATEST_RELEASE';/" "$NAMESPACE_FILE"
+	rm "$NAMESPACE_FILE.bak"
+else
+	echo "Warning: namespace.php file not found."
+fi
