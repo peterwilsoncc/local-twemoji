@@ -34,6 +34,7 @@ class Test_Twemoji extends WP_UnitTestCase {
 	public function test_twemoji_version() {
 		$actual = \PWCC\LocalTwemoji\TWEMOJI_VERSION;
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- OK for this test.
 		$packages = json_decode( file_get_contents( __DIR__ . '/../package.json' ), true );
 		$expected = $packages['devDependencies']['@twemoji/api'];
 
