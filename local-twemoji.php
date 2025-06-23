@@ -9,13 +9,14 @@
  *
  * @wordpress-plugin
  * Plugin Name: Local Twemoji
- * Description:
+ * Description: Serve Twemoji from your own server instead of a CDN.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Peter Wilson
  * Author URI: https://peterwilson.cc
  * License: MIT
+ * License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
  * Text Domain: local-twemoji
  */
 
