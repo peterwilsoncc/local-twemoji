@@ -10,7 +10,7 @@ namespace PWCC\LocalTwemoji\Tests;
 use WP_UnitTestCase;
 
 /**
- * Sample Tests
+ * Test the Local Twemoji plugin.
  */
 class Test_Twemoji extends WP_UnitTestCase {
 	/**
