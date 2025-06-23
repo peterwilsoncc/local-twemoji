@@ -42,6 +42,24 @@ class Test_Twemoji extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the plugin version constant matches the file header.
+	 */
+	public function test_plugin_version_constant() {
+		$plugin_data = get_file_data(
+			__DIR__ . '/../local-twemoji.php',
+			array(
+				'Version' => 'Version',
+			)
+		);
+
+		$this->assertEquals(
+			\PWCC\LocalTwemoji\PLUGIN_VERSION,
+			$plugin_data['Version'],
+			'Plugin version constant should match the file header'
+		);
+	}
+
+	/**
 	 * Test the emoji URL filter.
 	 */
 	public function test_emoji_url_filter() {
