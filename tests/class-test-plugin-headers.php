@@ -157,18 +157,16 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	/**
 	 * Test that headers defined in both the readme and plugin file match.
 	 *
-	 * Note: This test will show as skipped if there are no common headers defined in
-	 * both the readme and plugin file. This is fine.
-	 *
 	 * @dataProvider data_common_headers_match
 	 *
-	 * @param string $header Header to test.
+	 * @param string      $plugin_header_name Plugin file header name to test.
+	 * @param string|null $readme_header_name Readme file header name to test. If null, the plugin header name will be used.
 	 */
-	public function test_common_headers_match( $header ) {
-		$plugin_header = self::$defined_plugin_headers[ $header ];
-		$readme_header = self::$defined_readme_headers[ $header ];
+	public function test_common_headers_match( $plugin_header_name, $readme_header_name = null ) {
+		$plugin_header = self::$defined_plugin_headers[ $plugin_header_name ];
+		$readme_header = self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ];
 
-		$this->assertSame( $plugin_header, $readme_header, "The header {$header} does not match between the readme and plugin file." );
+		$this->assertSame( $plugin_header, $readme_header, "The header {$plugin_header_name} does not match between the readme and plugin file." );
 	}
 
 	/**
@@ -183,6 +181,9 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 		);
 
 		$headers = array();
+		// Always test the version matches the stable tag.
+		$headers[] = array( 'Version', 'Stable tag' );
+
 		foreach ( $common_headers as $header => $value ) {
 			$headers[ $header ] = array( $header );
 		}
