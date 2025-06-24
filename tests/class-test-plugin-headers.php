@@ -188,7 +188,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 
 		$headers = array();
 		// Always test the version matches the stable tag.
-		$headers['Stable Tag'] = array( 'Version', 'Stable tag' );
+		$headers['Stable tag matches version'] = array( 'Version', 'Stable tag' );
 
 		foreach ( $common_headers as $header => $value ) {
 			$headers[ $header ] = array( $header );
