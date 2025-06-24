@@ -10,7 +10,7 @@ namespace PWCC\LocalTwemoji\Tests;
 use WP_UnitTestCase;
 
 /**
- * Sample Tests
+ * Test the Local Twemoji plugin.
  */
 class Test_Twemoji extends WP_UnitTestCase {
 	/**
@@ -39,6 +39,24 @@ class Test_Twemoji extends WP_UnitTestCase {
 		$expected = $packages['devDependencies']['@twemoji/api'];
 
 		$this->assertSame( $expected, $actual, 'Twemoji version should match the version in package.json' );
+	}
+
+	/**
+	 * Test the plugin version constant matches the file header.
+	 */
+	public function test_plugin_version_constant() {
+		$plugin_data = get_file_data(
+			__DIR__ . '/../local-twemoji.php',
+			array(
+				'Version' => 'Version',
+			)
+		);
+
+		$this->assertEquals(
+			\PWCC\LocalTwemoji\PLUGIN_VERSION,
+			$plugin_data['Version'],
+			'Plugin version constant should match the file header'
+		);
 	}
 
 	/**

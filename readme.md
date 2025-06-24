@@ -2,6 +2,8 @@
 
 Self hosted Twemoji images
 
+[![PHP Unit Tests](https://github.com/peterwilsoncc/local-twemoji/actions/workflows/phpunit.yaml/badge.svg)](https://github.com/peterwilsoncc/local-twemoji/actions/workflows/phpunit.yaml) [![Coding Standards](https://github.com/peterwilsoncc/local-twemoji/actions/workflows/coding-standards.yaml/badge.svg)](https://github.com/peterwilsoncc/local-twemoji/actions/workflows/coding-standards.yaml)
+
 ## Description
 
 Local Twemoji is a WordPress plugin to serve fallback emoji images from your own site URL rather than the WordPress.org CDN.
