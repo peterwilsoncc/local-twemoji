@@ -21,7 +21,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	/**
 	 * Readme headers specification
 	 *
-	 * @var string[] Headers defined in the readme spec. Key: Header, Value: true: required, false: optional.
+	 * @var array<string,int> Headers defined in the readme spec. Key: Header, Value: true: required, false: optional.
 	 */
 	public static $readme_headers = array(
 		'Contributors'      => REQUIRED,
@@ -51,7 +51,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	/**
 	 * Plugin headers specification
 	 *
-	 * @var string[] Headers defined in the plugin spec. Key: Header, Value: true: required, false: optional.
+	 * @var array<string,int> Headers defined in the plugin spec. Key: Header, Value: true: required, false: optional.
 	 */
 	public static $plugin_headers = array(
 		'Plugin Name'       => REQUIRED,
