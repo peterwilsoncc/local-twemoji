@@ -9,6 +9,10 @@ namespace PWCC\LocalTwemoji\Tests;
 
 use WP_UnitTestCase;
 
+const OPTIONAL  = 0;
+const REQUIRED  = 1;
+const FORBIDDEN = 2;
+
 /**
  * Test Plugin Readme and PHP Headers
  */
@@ -20,14 +24,27 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @var string[] Headers defined in the readme spec. Key: Header, Value: true: required, false: optional.
 	 */
 	public static $readme_headers = array(
-		'Contributors'      => true,
-		'Donate link'       => false,
-		'Requires at least' => true, // Not required by the spec but I'm enforcing it.
-		'Tested up to'      => true,
-		'Stable tag'        => true,
-		'Requires PHP'      => false,
-		'License'           => true,
-		'License URI'       => false,
+		'Contributors'      => REQUIRED,
+		'Donate link'       => OPTIONAL,
+		'Requires at least' => REQUIRED, // Not required by the spec but I'm enforcing it.
+		'Tested up to'      => REQUIRED,
+		'Stable tag'        => REQUIRED,
+		'Requires PHP'      => OPTIONAL,
+		'License'           => REQUIRED,
+		'License URI'       => OPTIONAL,
+
+		// Plugin file headers that do not belong in the readme.
+		'Plugin Name'       => FORBIDDEN,
+		'Plugin URI'        => FORBIDDEN,
+		'Description'       => FORBIDDEN,
+		'Version'           => FORBIDDEN,
+		'Author'            => FORBIDDEN,
+		'Author URI'        => FORBIDDEN,
+		'Text Domain'       => FORBIDDEN,
+		'Domain Path'       => FORBIDDEN,
+		'Network'           => FORBIDDEN,
+		'Update URI'        => FORBIDDEN,
+		'Requires Plugins'  => FORBIDDEN,
 	);
 
 	/**
@@ -36,21 +53,27 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @var string[] Headers defined in the plugin spec. Key: Header, Value: true: required, false: optional.
 	 */
 	public static $plugin_headers = array(
-		'Plugin Name'       => true,
-		'Plugin URI'        => false,
-		'Description'       => true,
-		'Version'           => true,
-		'Requires at least' => true, // Not required by the spec but I'm enforcing it.
-		'Requires PHP'      => true, // Not required by the spec but I'm enforcing it.
-		'Author'            => true,
-		'Author URI'        => false,
-		'License'           => true,
-		'License URI'       => false,
-		'Text Domain'       => false,
-		'Domain Path'       => false,
-		'Network'           => false,
-		'Update URI'        => false,
-		'Requires Plugins'  => false,
+		'Plugin Name'       => REQUIRED,
+		'Plugin URI'        => OPTIONAL,
+		'Description'       => REQUIRED,
+		'Version'           => REQUIRED,
+		'Requires at least' => REQUIRED, // Not required by the spec but I'm enforcing it.
+		'Requires PHP'      => REQUIRED, // Not required by the spec but I'm enforcing it.
+		'Author'            => REQUIRED,
+		'Author URI'        => OPTIONAL,
+		'License'           => REQUIRED,
+		'License URI'       => OPTIONAL,
+		'Text Domain'       => OPTIONAL,
+		'Domain Path'       => OPTIONAL,
+		'Network'           => OPTIONAL,
+		'Update URI'        => OPTIONAL,
+		'Requires Plugins'  => OPTIONAL,
+
+		// Readme file headers that do not belong in the plugin file.
+		'Contributors'      => FORBIDDEN,
+		'Donate link'       => FORBIDDEN,
+		'Tested up to'      => FORBIDDEN,
+		'Stable tag'        => FORBIDDEN,
 	);
 
 	/**
@@ -120,9 +143,44 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @return array[] Data provider.
 	 */
 	public function data_required_readme_headers() {
-		$required_headers = array_filter( self::$readme_headers );
+		$required_headers = array_filter(
+			self::$readme_headers,
+			function ( $required ) {
+				return REQUIRED === $required;
+			}
+		);
 		$headers          = array();
 		foreach ( $required_headers as $header => $required ) {
+			$headers[ $header ] = array( $header );
+		}
+		return $headers;
+	}
+
+	/**
+	 * Test that the readme file does not have any forbidden headers.
+	 *
+	 * @dataProvider data_forbidden_readme_headers
+	 *
+	 * @param string $header Header to test.
+	 */
+	public function test_forbidden_readme_headers( $header ) {
+		$this->assertArrayNotHasKey( $header, self::$defined_readme_headers, "The readme file header {$header} is forbidden." );
+	}
+
+	/**
+	 * Data provider for test_forbidden_readme_headers.
+	 *
+	 * @return array[] Data provider.
+	 */
+	public function data_forbidden_readme_headers() {
+		$forbidden_headers = array_filter(
+			self::$readme_headers,
+			function ( $required ) {
+				return FORBIDDEN === $required;
+			}
+		);
+		$headers           = array();
+		foreach ( $forbidden_headers as $header => $required ) {
 			$headers[ $header ] = array( $header );
 		}
 		return $headers;
@@ -146,9 +204,44 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @return array[] Data provider.
 	 */
 	public function data_required_plugin_headers() {
-		$required_headers = array_filter( self::$plugin_headers );
+		$required_headers = array_filter(
+			self::$plugin_headers,
+			function ( $required ) {
+				return REQUIRED === $required;
+			}
+		);
 		$headers          = array();
 		foreach ( $required_headers as $header => $required ) {
+			$headers[ $header ] = array( $header );
+		}
+		return $headers;
+	}
+
+	/**
+	 * Test that the plugin file does not have any forbidden headers.
+	 *
+	 * @dataProvider data_forbidden_plugin_headers
+	 *
+	 * @param string $header Header to test.
+	 */
+	public function test_forbidden_plugin_headers( $header ) {
+		$this->assertArrayNotHasKey( $header, self::$defined_plugin_headers, "The plugin file header {$header} is forbidden." );
+	}
+
+	/**
+	 * Data provider for test_forbidden_plugin_headers.
+	 *
+	 * @return array[] Data provider.
+	 */
+	public function data_forbidden_plugin_headers() {
+		$forbidden_headers = array_filter(
+			self::$plugin_headers,
+			function ( $required ) {
+				return FORBIDDEN === $required;
+			}
+		);
+		$headers           = array();
+		foreach ( $forbidden_headers as $header => $required ) {
 			$headers[ $header ] = array( $header );
 		}
 		return $headers;
@@ -163,13 +256,14 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string|null $readme_header_name Readme file header name to test. If null, the plugin header name will be used.
 	 */
 	public function test_common_headers_match( $plugin_header_name, $readme_header_name = null ) {
-		$plugin_header = self::$defined_plugin_headers[ $plugin_header_name ];
-		$readme_header = self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ];
-
-		if ( empty( $plugin_header ) || empty( $readme_header ) ) {
-			$this->markTestSkipped( "The header {$plugin_header_name} is not defined in both the readme and plugin file." );
+		if ( empty( self::$defined_plugin_headers[ $plugin_header_name ] ) || empty( self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ] ) ) {
+			// The header is not common to both files so the test passes.
+			$this->assertTrue( true );
 			return;
 		}
+
+		$plugin_header = self::$defined_plugin_headers[ $plugin_header_name ];
+		$readme_header = self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ];
 
 		$this->assertSame( $plugin_header, $readme_header, "The header {$plugin_header_name} does not match between the readme and plugin file." );
 	}
