@@ -25,6 +25,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 */
 	public static $readme_headers = array(
 		'Contributors'      => REQUIRED,
+		'Tags'              => OPTIONAL,
 		'Donate link'       => OPTIONAL,
 		'Requires at least' => REQUIRED, // Not required by the spec but I'm enforcing it.
 		'Tested up to'      => REQUIRED,
@@ -71,6 +72,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 
 		// Readme file headers that do not belong in the plugin file.
 		'Contributors'      => FORBIDDEN,
+		'Tags'              => FORBIDDEN,
 		'Donate link'       => FORBIDDEN,
 		'Tested up to'      => FORBIDDEN,
 		'Stable tag'        => FORBIDDEN,
