@@ -133,8 +133,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string $header Header to test.
 	 */
 	public function test_required_readme_headers( $header ) {
-		$this->assertArrayHasKey( $header, self::$defined_readme_headers, "The readme file header {$header} is missing." );
-		$this->assertNotEmpty( self::$defined_readme_headers[ $header ], "The readme file header {$header} is empty." );
+		$this->assertArrayHasKey( $header, self::$defined_readme_headers, "The readme file header '{$header}' is missing." );
+		$this->assertNotEmpty( self::$defined_readme_headers[ $header ], "The readme file header '{$header}' is empty." );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string $header Header to test.
 	 */
 	public function test_forbidden_readme_headers( $header ) {
-		$this->assertArrayNotHasKey( $header, self::$defined_readme_headers, "The readme file header {$header} is forbidden." );
+		$this->assertArrayNotHasKey( $header, self::$defined_readme_headers, "The readme file header '{$header}' is forbidden." );
 	}
 
 	/**
@@ -194,8 +194,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string $header Header to test.
 	 */
 	public function test_required_plugin_headers( $header ) {
-		$this->assertArrayHasKey( $header, self::$defined_plugin_headers, "The plugin file header {$header} is missing." );
-		$this->assertNotEmpty( self::$defined_plugin_headers[ $header ], "The readme file header {$header} is empty." );
+		$this->assertArrayHasKey( $header, self::$defined_plugin_headers, "The plugin file header '{$header}' is missing." );
+		$this->assertNotEmpty( self::$defined_plugin_headers[ $header ], "The readme file header '{$header}' is empty." );
 	}
 
 	/**
@@ -225,7 +225,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string $header Header to test.
 	 */
 	public function test_forbidden_plugin_headers( $header ) {
-		$this->assertArrayNotHasKey( $header, self::$defined_plugin_headers, "The plugin file header {$header} is forbidden." );
+		$this->assertArrayNotHasKey( $header, self::$defined_plugin_headers, "The plugin file header '{$header}' is forbidden." );
 	}
 
 	/**
@@ -256,16 +256,22 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * @param string|null $readme_header_name Readme file header name to test. If null, the plugin header name will be used.
 	 */
 	public function test_common_headers_match( $plugin_header_name, $readme_header_name = null ) {
-		if ( empty( self::$defined_plugin_headers[ $plugin_header_name ] ) || empty( self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ] ) ) {
+		$readme_header_name = $readme_header_name ?? $plugin_header_name;
+		if ( empty( self::$defined_plugin_headers[ $plugin_header_name ] ) || empty( self::$defined_readme_headers[ $readme_header_name ] ) ) {
 			// The header is not common to both files so the test passes.
 			$this->assertTrue( true );
 			return;
 		}
 
 		$plugin_header = self::$defined_plugin_headers[ $plugin_header_name ];
-		$readme_header = self::$defined_readme_headers[ $readme_header_name ?? $plugin_header_name ];
+		$readme_header = self::$defined_readme_headers[ $readme_header_name ];
 
-		$this->assertSame( $plugin_header, $readme_header, "The header {$plugin_header_name} does not match between the readme and plugin file." );
+		$message = "The header '{$plugin_header_name}' does not match between the readme and plugin file.";
+		if ( $plugin_header_name !== $readme_header_name ) {
+			$message = "The plugin header '{$plugin_header_name}' does not match the readme header '{$readme_header_name}'.";
+		}
+
+		$this->assertSame( $plugin_header, $readme_header, $message );
 	}
 
 	/**
