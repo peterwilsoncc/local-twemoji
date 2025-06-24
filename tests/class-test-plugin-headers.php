@@ -145,8 +145,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	public function data_required_readme_headers() {
 		$required_headers = array_filter(
 			self::$readme_headers,
-			function ( $required ) {
-				return REQUIRED === $required;
+			function ( $status ) {
+				return REQUIRED === $status;
 			}
 		);
 		$headers          = array();
@@ -175,8 +175,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	public function data_forbidden_readme_headers() {
 		$forbidden_headers = array_filter(
 			self::$readme_headers,
-			function ( $required ) {
-				return FORBIDDEN === $required;
+			function ( $status ) {
+				return FORBIDDEN === $status;
 			}
 		);
 		$headers           = array();
@@ -206,8 +206,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	public function data_required_plugin_headers() {
 		$required_headers = array_filter(
 			self::$plugin_headers,
-			function ( $required ) {
-				return REQUIRED === $required;
+			function ( $status ) {
+				return REQUIRED === $status;
 			}
 		);
 		$headers          = array();
@@ -236,8 +236,8 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	public function data_forbidden_plugin_headers() {
 		$forbidden_headers = array_filter(
 			self::$plugin_headers,
-			function ( $required ) {
-				return FORBIDDEN === $required;
+			function ( $status ) {
+				return FORBIDDEN === $status;
 			}
 		);
 		$headers           = array();
