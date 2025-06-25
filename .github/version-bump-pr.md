@@ -11,10 +11,8 @@ Bot steps:
 Human steps:
 
 * Apply a minor version bump to the plugin, ie 0.1.0.
+   * [ ] Run `npm --no-git-tag-version version minor`
    * [ ] Version number in PHP header
    * [ ] Stable version in readme.txt header
    * [ ] `PLUGIN_VERSION` constant in main namespace file.
-   * [ ] Version number in `package.json`
-   * [ ] Version number in `package-lock.json`
-   * [ ] The second instance of the version number in `package-lock.json`
 * [ ] Increase WP minimum required version if applicable.
