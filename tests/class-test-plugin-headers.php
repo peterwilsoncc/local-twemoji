@@ -21,16 +21,14 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	/**
 	 * Readme headers specification
 	 *
-	 * @var string[] Headers defined in the readme spec. Key: Header, Value: true: required, false: optional.
+	 * @var array<string,int> Headers defined in the readme spec. Key: Header; Value: OPTIONAL, REQUIRED, FORBIDDEN.
 	 */
 	public static $readme_headers = array(
 		'Contributors'      => REQUIRED,
 		'Tags'              => OPTIONAL,
 		'Donate link'       => OPTIONAL,
-		'Requires at least' => REQUIRED, // Not required by the spec but I'm enforcing it.
 		'Tested up to'      => REQUIRED,
 		'Stable tag'        => REQUIRED,
-		'Requires PHP'      => OPTIONAL,
 		'License'           => REQUIRED,
 		'License URI'       => OPTIONAL,
 
@@ -45,13 +43,15 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 		'Domain Path'       => FORBIDDEN,
 		'Network'           => FORBIDDEN,
 		'Update URI'        => FORBIDDEN,
+		'Requires at least' => FORBIDDEN, // Both WP and the plugin directory prefer the version in the plugin file.
+		'Requires PHP'      => FORBIDDEN, // Both WP and the plugin directory prefer the version in the plugin file.
 		'Requires Plugins'  => FORBIDDEN,
 	);
 
 	/**
 	 * Plugin headers specification
 	 *
-	 * @var string[] Headers defined in the plugin spec. Key: Header, Value: true: required, false: optional.
+	 * @var array<string,int> Headers defined in the plugin spec. Key: Header; Value: OPTIONAL, REQUIRED, FORBIDDEN.
 	 */
 	public static $plugin_headers = array(
 		'Plugin Name'       => REQUIRED,
@@ -74,8 +74,22 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 		'Contributors'      => FORBIDDEN,
 		'Tags'              => FORBIDDEN,
 		'Donate link'       => FORBIDDEN,
-		'Tested up to'      => FORBIDDEN,
 		'Stable tag'        => FORBIDDEN,
+
+		/*
+		 * Opinionated: Allowed by the spec.
+		 *
+		 * The WordPress plugin directory will use the plugin file headers if
+		 * it exists, and fall back to the readme file if it does not.
+		 *
+		 * However, the 10up Github Action for deploying updates to the
+		 * directory will require a version bump if the plugin file is
+		 * modified, so it's best to keep tested up to in the readme file.
+		 *
+		 * WordPress Core doesn't use the header, it pulls the data in
+		 * from the plugin API.
+		 */
+		'Tested up to'      => FORBIDDEN,
 	);
 
 	/**

@@ -1,10 +1,8 @@
 === Local Twemoji ===
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
-Requires at least: 6.0
 Tested up to: 6.8
 Stable tag: 1.0.0
-Requires PHP: 7.4
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
 
