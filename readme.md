@@ -28,3 +28,9 @@ composer require peterwilsoncc/local-twemoji
 
 * Via WordPress.org
 * [Via GitHub](https://github.com/peterwilsoncc/local-twemoji/releases/latest)
+
+## Licenses
+
+The plugin code is licensed under the [MIT License](https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file).
+
+The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://github.com/jdecked/twemoji?tab=CC-BY-4.0-2-ov-file). Copyright Twitter Inc. and other [contributors](https://github.com/jdecked/twemoji/graphs/contributors).

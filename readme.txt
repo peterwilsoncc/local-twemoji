@@ -20,9 +20,15 @@ For sites served over a CDN, downloading the image from your own URL will be qui
 
 == Frequently Asked Questions ==
 
-= Where is the settings page =
+= Where is the settings page? =
 
 There is no settings page for this plugin, simply activate the plugin and it will work as intended.
+
+= How is this plugin licensed? =
+
+The plugin code is licensed under the [MIT License](https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file).
+
+The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://github.com/jdecked/twemoji?tab=CC-BY-4.0-2-ov-file). Copyright Twitter Inc. and other [contributors](https://github.com/jdecked/twemoji/graphs/contributors).
 
 == Changelog ==
 
