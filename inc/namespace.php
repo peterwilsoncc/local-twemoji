@@ -10,7 +10,7 @@
 
 namespace PWCC\LocalTwemoji;
 
-const PLUGIN_VERSION  = '1.0.0';
+const PLUGIN_VERSION  = '1.1.0';
 const TWEMOJI_VERSION = '16.0.1';
 
 /**

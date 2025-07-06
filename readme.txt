@@ -2,7 +2,7 @@
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
 Tested up to: 6.8
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
 
@@ -31,6 +31,10 @@ The plugin code is licensed under the [MIT License](https://github.com/peterwils
 The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://github.com/jdecked/twemoji?tab=CC-BY-4.0-2-ov-file). Copyright Twitter Inc. and other [contributors](https://github.com/jdecked/twemoji/graphs/contributors).
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Credits page for WP.org release
 
 = 1.0.0 =
 
