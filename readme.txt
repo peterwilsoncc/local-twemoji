@@ -34,7 +34,17 @@ The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://
 
 = 1.1.0 =
 
-* Credits page for WP.org release
+* Initial WordPress.org release
+* Fix: Update Docblocks for accuracy
+* Enh: Add cache busting string to Twemoji images
+* Docs: Add readme and wp.org assets
+* Enh: Add Twemoji Credits page; props wp.org plugin review team
+* Docs: Add Twemoji Credits to readme files; props plugin review team
+* Dev: Update PR template for Twemoji Update action
+* Dev: Add tests for plugin readme headers
+* Dev: Add tests for plugin version number consistency
+* Dev: Add tests for Twemoji version number consistency
+* Full Changelog: https://github.com/peterwilsoncc/local-twemoji/compare/1.0.0...1.1.0
 
 = 1.0.0 =
 
@@ -42,4 +52,4 @@ Initial release.
 
 = Full changelogs =
 
-View the [releases](https://github.com/peterwilsoncc/local-twemoji/releases) on GitHub for the full change logs. This log will contain only the most recent releases.
+View the [releases](https://github.com/peterwilsoncc/local-twemoji/releases) on GitHub for the full change logs. This log will contain only the most recent three releases.
