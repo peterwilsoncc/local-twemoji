@@ -1,0 +1,20 @@
+{
+  "landingPage": "/?p=4",
+  "preferredVersions": {
+    "php": "8.4",
+    "wp": "latest"
+  },
+  "login": true,
+  "plugins": [
+    "local-twemoji"
+  ],
+  "steps": [
+    {
+      "step": "importWxr",
+      "file": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/peterwilsoncc/local-twemoji/refs/heads/main/.wordpress-org/emoji-post.xml"
+      }
+    }
+  ]
+}
