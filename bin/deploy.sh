@@ -193,6 +193,9 @@ else
 	echo "ℹ︎ No assets directory found; skipping asset copy"
 fi
 
+# Remove GitHub readme.md from WP.org repository
+rm -f trunk/readme.md
+
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
 # Suppress stdout in favor of svn status later for readability
@@ -202,6 +205,9 @@ svn add . --force > /dev/null
 # SVN delete all deleted files
 # Also suppress stdout here
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
+
+# Remove readme.txt update from trunk.
+svn revert trunk/readme.txt
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
@@ -231,6 +237,18 @@ else
 
   echo "➤ Committing tag..."
   svn copy "$SVN_URL/trunk" "$SVN_URL/tags/$VERSION" -m "Tagging version $VERSION" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+
+  echo "➤ Committing stable branch update to tag..."
+  svn up
+  rm "$SVN_DIR/tags/$VERSION/readme.txt"
+  cp "$GITHUB_WORKSPACE/readme.txt" "$SVN_DIR/tags/$VERSION/readme.txt"
+  svn commit -m "Updating stable tag in version $VERSION" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+
+  echo "➤ Committing stable branch update to trunk..."
+  svn up
+  rm "$SVN_DIR/trunk/readme.txt"
+  cp "$GITHUB_WORKSPACE/readme.txt" "$SVN_DIR/trunk/readme.txt"
+  svn commit -m "Updating stable branch in trunk to $VERSION" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 fi
 
 generate_zip
