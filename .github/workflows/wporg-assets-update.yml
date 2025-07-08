@@ -8,7 +8,12 @@ jobs:
     name: Push asset update to WordPress.org
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout repository
+      uses: actions/checkout@master
+
+    - name: Remove readme.md from WordPress.org deploy.
+      run: rm -f readme.md
+
     - name: WordPress.org plugin asset/readme update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
