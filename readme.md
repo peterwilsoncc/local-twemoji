@@ -26,7 +26,7 @@ composer require peterwilsoncc/local-twemoji
 
 *Downloads*
 
-* Via WordPress.org
+* [Via WordPress.org](https://wordpress.org/plugins/local-twemoji/)
 * [Via GitHub](https://github.com/peterwilsoncc/local-twemoji/releases/latest)
 
 ## Licenses
