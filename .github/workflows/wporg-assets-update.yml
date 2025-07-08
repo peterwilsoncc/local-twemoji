@@ -12,7 +12,11 @@ jobs:
       uses: actions/checkout@master
 
     - name: Remove readme.md from WordPress.org deploy.
-      run: rm -f readme.md
+      run: |
+        git rm readme.md
+        git config --global user.email "10upbot+github@10up.com"
+        git config --global user.name "10upbot on GitHub"
+        git commit -m "Remove readme.md for WordPress.org deploy"
 
     - name: WordPress.org plugin asset/readme update
       uses: 10up/action-wordpress-plugin-asset-update@stable
