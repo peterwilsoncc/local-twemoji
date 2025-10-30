@@ -64,11 +64,15 @@ class Test_Twemoji extends WP_UnitTestCase {
 	 */
 	public function test_emoji_url_filter() {
 		$actual = get_echo( '_print_emoji_detection_script' );
+		$flags  = 0;
+		if ( version_compare( wp_get_wp_version(), '6.9-alpha', '>=' ) ) {
+			$flags = JSON_HEX_TAG | JSON_UNESCAPED_SLASHES;
+		}
 
-		$default_url = wp_json_encode( 'https://s.w.org/images/core/emoji/' );
+		$default_url = wp_json_encode( 'https://s.w.org/images/core/emoji/', $flags );
 		$default_url = rtrim( $default_url, '"' );
 
-		$expected_url = wp_json_encode( home_url() );
+		$expected_url = wp_json_encode( home_url(), $flags );
 		$expected_url = rtrim( $expected_url, '"' );
 
 		$this->assertStringNotContainsString( $default_url, $actual, 's.w.org URL should not be present' );
