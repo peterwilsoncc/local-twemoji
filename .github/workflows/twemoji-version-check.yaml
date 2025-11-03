@@ -110,14 +110,12 @@ jobs:
           git config --global user.name "Bot";
           git checkout -b "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
           ./bin/tw-version-update.sh;
-          git add .;
-          git commit -am "Update Twemoji to ${{ steps.latest-twemoji-version.outputs.latest_version }}";
-          git push origin "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
 
       - name: Create pull request.
         id: create-pr
         if: ${{ steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true' }}
         run: |
+          git push origin "update-twemoji-${{ steps.latest-twemoji-version.outputs.latest_version }}";
           echo "Creating pull request";
           # Read in content from `.github/version-bump-pr.md`
           PR_BODY=$(cat .github/version-bump-pr.md);
