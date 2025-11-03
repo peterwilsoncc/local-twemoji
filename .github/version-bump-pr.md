@@ -15,4 +15,5 @@ Human steps:
    * [ ] Version number in PHP header
    * [ ] Stable version in readme.txt header
    * [ ] `PLUGIN_VERSION` constant in main namespace file.
+   * [ ] Update changelog file.
 * [ ] Increase WP minimum required version if applicable.
