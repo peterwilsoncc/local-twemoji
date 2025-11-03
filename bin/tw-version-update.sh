@@ -30,10 +30,6 @@ mkdir -p "$SCRIPT_DIR/../images/emoji/"
 
 echo "Updating to version $TWEMOJI_LATEST_RELEASE"
 
-# Update to the latest version in the NPM config.
-npm uninstall @twemoji/api --save-dev
-npm install @twemoji/api@$TWEMOJI_LATEST_RELEASE --save-dev --save-exact
-
 # Download the SVG images from the twemoji project
 gh release download $TWEMOJI_LATEST_RELEASE_TAG --repo jdecked/twemoji --archive zip --output "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE_TAG.zip"
 
@@ -46,11 +42,20 @@ rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE_TAG.zip"
 # Move the SVG images to the correct directory
 mv "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE/assets/svg" "$SCRIPT_DIR/../images/emoji/"
 
-# Move the PNG images to the correct directory
+# Move the PNG images to the correct directory.
 mv "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE/assets/72x72" "$SCRIPT_DIR/../images/emoji/"
+
+# Commit the image updates to git
+git add "$SCRIPT_DIR/../images/emoji/svg"
+git add "$SCRIPT_DIR/../images/emoji/72x72"
+git commit -am "Update Twemoji images to version $TWEMOJI_LATEST_RELEASE"
 
 # Remove the downloaded directory
 rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE"
+
+# Update to the latest version in the NPM config.
+npm uninstall @twemoji/api --save-dev
+npm install @twemoji/api@$TWEMOJI_LATEST_RELEASE --save-dev --save-exact
 
 # Update the version number in the namespace file.
 echo "Updating version in namespace file"
@@ -61,3 +66,5 @@ if [ -f "$NAMESPACE_FILE" ]; then
 else
 	echo "Warning: namespace.php file not found."
 fi
+
+git commit -am "Update Twemoji to $TWEMOJI_LATEST_RELEASE";
