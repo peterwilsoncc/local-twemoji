@@ -2,7 +2,7 @@
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
 Tested up to: 6.8
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
 
