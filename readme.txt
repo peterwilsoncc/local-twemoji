@@ -2,7 +2,7 @@
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
 Tested up to: 6.8
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
 
@@ -18,6 +18,15 @@ The effect of this is that the WordPress.org CDN's splat image is treated as two
 
 For sites served over a CDN, downloading the image from your own URL will be quicker as it reduces the number of servers the visitor's browser needs to connect to.
 
+= WordPress version support =
+
+A new version of Twemoji is released each time the emoji are added to the Unicode specification, each major version bump of Twemoji will contain new images.
+
+To avoid the risk of serving broken images to your visitors, this plugin should be kept up to date.
+
+* Local Twemoji 1.2.0 and later supports WordPress 6.9 and earlier
+* Local Twemoji 1.1.0 and later supports WordPress 6.8 and earlier
+
 == Frequently Asked Questions ==
 
 = Where is the settings page? =
@@ -30,13 +39,24 @@ The plugin code is licensed under the [MIT License](https://github.com/peterwils
 
 The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://github.com/jdecked/twemoji?tab=CC-BY-4.0-2-ov-file). Copyright Twitter Inc. and other [contributors](https://github.com/jdecked/twemoji/graphs/contributors).
 
+== Upgrade Notice ==
+
+= 1.3.0 =
+
+Version 1.2.0 or higher will be required for full WordPress 6.9 support.
+
 == Changelog ==
+
+= 1.3.0 =
+
+* Changed: Update to Twemoji 17.0.2
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.1.2...1.3.0)
 
 = 1.2.0 =
 
 * Changed: Update to Twemoji 17.0.1
 * Dev: Modify Twemoji update action.
-* Full Changelog: https://github.com/peterwilsoncc/local-twemoji/compare/1.1.0...1.2.0
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.1.0...1.2.0)
 
 = 1.1.0 =
 
@@ -50,11 +70,7 @@ The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://
 * Dev: Add tests for plugin readme headers
 * Dev: Add tests for plugin version number consistency
 * Dev: Add tests for Twemoji version number consistency
-* Full Changelog: https://github.com/peterwilsoncc/local-twemoji/compare/1.0.0...1.1.0
-
-= 1.0.0 =
-
-Initial release.
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.0.0...1.1.0)
 
 = Full changelogs =
 

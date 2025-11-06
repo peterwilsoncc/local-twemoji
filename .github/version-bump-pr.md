@@ -16,4 +16,6 @@ Human steps:
    * [ ] Stable version in readme.txt header
    * [ ] `PLUGIN_VERSION` constant in main namespace file.
    * [ ] Update changelog file.
+   * [ ] Update notes indicating WordPress version support.
+   * [ ] Update upgrade notice indicating WordPress version support.
 * [ ] Increase WP minimum required version if applicable.

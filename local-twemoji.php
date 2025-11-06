@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name: Local Twemoji
  * Description: Serve Twemoji from your own server instead of a CDN.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Peter Wilson
