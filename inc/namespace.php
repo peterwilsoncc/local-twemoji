@@ -11,7 +11,7 @@
 namespace PWCC\LocalTwemoji;
 
 const PLUGIN_VERSION  = '1.2.0';
-const TWEMOJI_VERSION = '17.0.1';
+const TWEMOJI_VERSION = '17.0.2';
 
 /**
  * Bootstrap the plugin.
