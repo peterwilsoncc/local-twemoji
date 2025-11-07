@@ -11,11 +11,8 @@ CURRENT_VERSION=$(jq -r '.packages["node_modules/@twemoji/api"].version' "$SCRIP
 
 echo "Current version is $CURRENT_VERSION"
 
-# Get the latest release for the twemoji project use the GitHub CLI
-TWEMOJI_LATEST_RELEASE_TAG=$(gh release view --json tagName --repo jdecked/twemoji | jq -r '.tagName')
-
-# Remove the leading "v" from the tag name
-TWEMOJI_LATEST_RELEASE=${TWEMOJI_LATEST_RELEASE_TAG#"v"}
+# Get the latest release for the twemoji project from NPM.
+TWEMOJI_LATEST_RELEASE=$(curl -s https://registry.npmjs.org/@twemoji/api/latest | jq -r '.version')
 
 # Do nothing if the versions are the same.
 if [ "$CURRENT_VERSION" == "$TWEMOJI_LATEST_RELEASE" ]; then
@@ -30,20 +27,23 @@ mkdir -p "$SCRIPT_DIR/../images/emoji/"
 
 echo "Updating to version $TWEMOJI_LATEST_RELEASE"
 
-# Download the SVG images from the twemoji project
-gh release download $TWEMOJI_LATEST_RELEASE_TAG --repo jdecked/twemoji --archive zip --output "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE_TAG.zip"
+# Download the images from the twemoji project
+curl -L -o "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip" "https://github-proxy.com/proxy/?repo=jdecked/twemoji&branch=gh-pages&directory=v/$TWEMOJI_LATEST_RELEASE"
 
 # Unzip the downloaded file
-unzip "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE_TAG.zip" -d "$SCRIPT_DIR/../images/emoji/"
+unzip "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip" -d "$SCRIPT_DIR/../images/emoji/"
 
 # Remove the downloaded zip file
-rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE_TAG.zip"
+rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip"
 
 # Move the SVG images to the correct directory
-mv "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE/assets/svg" "$SCRIPT_DIR/../images/emoji/"
+mv "$SCRIPT_DIR/../images/emoji/v/$TWEMOJI_LATEST_RELEASE/svg" "$SCRIPT_DIR/../images/emoji/"
 
 # Move the PNG images to the correct directory.
-mv "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE/assets/72x72" "$SCRIPT_DIR/../images/emoji/"
+mv "$SCRIPT_DIR/../images/emoji/v/$TWEMOJI_LATEST_RELEASE/72x72" "$SCRIPT_DIR/../images/emoji/"
+
+# Remove the unzipped directory
+rm -rf "$SCRIPT_DIR/../images/emoji/v"
 
 # Commit the image updates to git
 git add "$SCRIPT_DIR/../images/emoji/svg"
