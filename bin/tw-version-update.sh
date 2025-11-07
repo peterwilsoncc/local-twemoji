@@ -67,4 +67,4 @@ else
 	echo "Warning: namespace.php file not found."
 fi
 
-git commit -am "Update Twemoji to $TWEMOJI_LATEST_RELEASE";
+git commit -am "Update Twemoji version number references to $TWEMOJI_LATEST_RELEASE";
