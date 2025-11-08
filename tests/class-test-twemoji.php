@@ -39,7 +39,7 @@ class Test_Twemoji extends WP_UnitTestCase {
 		$expected = $packages['devDependencies']['@twemoji/api'];
 
 		/*
-		 * Allow the actual version to have a forth .x segment.
+		 * Allow the actual version to have a fourth .x segment.
 		 *
 		 * This is to cover situations in which a Twemoji update has gone wrong
 		 * in the plugin and a quick fix is required that is not associated with a new
