@@ -2,7 +2,7 @@
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
 Tested up to: 6.8
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
 
@@ -24,7 +24,7 @@ A new version of Twemoji is released each time the emoji are added to the Unicod
 
 To avoid the risk of serving broken images to your visitors, this plugin should be kept up to date.
 
-* Local Twemoji 1.2.0 and later supports WordPress 6.9 and earlier
+* Local Twemoji 1.3.1 and later supports WordPress 6.9 and earlier
 * Local Twemoji 1.1.0 and later supports WordPress 6.8 and earlier
 
 == Frequently Asked Questions ==
@@ -41,16 +41,21 @@ The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://
 
 == Upgrade Notice ==
 
-= 1.3.0 =
+= 1.3.1 =
 
-Version 1.2.0 or higher will be required for full WordPress 6.9 support.
+Version 1.3.1 or higher will be required for full WordPress 6.9 support.
 
 == Changelog ==
+
+= 1.3.1 =
+
+* Changed: Add images missed in Twemoji 17.0.2 update.
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.3.0...1.3.1)
 
 = 1.3.0 =
 
 * Changed: Update to Twemoji 17.0.2
-* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.1.2...1.3.0)
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.2.0...1.3.0)
 
 = 1.2.0 =
 

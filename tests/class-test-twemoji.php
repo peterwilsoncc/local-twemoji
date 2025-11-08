@@ -38,7 +38,17 @@ class Test_Twemoji extends WP_UnitTestCase {
 		$packages = json_decode( file_get_contents( __DIR__ . '/../package.json' ), true );
 		$expected = $packages['devDependencies']['@twemoji/api'];
 
-		$this->assertSame( $expected, $actual, 'Twemoji version should match the version in package.json' );
+		/*
+		 * Allow the actual version to have a fourth .x segment.
+		 *
+		 * This is to cover situations in which a Twemoji update has gone wrong
+		 * in the plugin and a quick fix is required that is not associated with a new
+		 * Twemoji release.
+		 */
+		$actual_parts   = explode( '.', $actual );
+		$actual_trimmed = implode( '.', array_slice( $actual_parts, 0, 3 ) );
+
+		$this->assertSame( $expected, $actual_trimmed, 'Twemoji version should match the version in package.json' );
 	}
 
 	/**
