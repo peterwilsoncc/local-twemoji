@@ -25,7 +25,7 @@ A new version of Twemoji is released each time the emoji are added to the Unicod
 To avoid the risk of serving broken images to your visitors, this plugin should be kept up to date.
 
 * WordPress 6.9 requires Local Twemoji 1.3.1 or later
-* Earlier versions of WordPress requires Local Twemoji 1.1.0 or later
+* Earlier versions of WordPress require Local Twemoji 1.1.0 or later
 
 == Frequently Asked Questions ==
 
