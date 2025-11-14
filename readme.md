@@ -14,6 +14,15 @@ The effect of this is that the WordPress.org CDN's splat image is treated as two
 
 For sites served over a CDN, downloading the image from your own URL will be quicker as it reduces the number of servers the visitor's browser needs to connect to.
 
+### WordPress version support
+
+A new version of Twemoji is released each time the emoji are added to the Unicode specification, each major version bump of Twemoji will contain new images.
+
+To avoid the risk of serving broken images to your visitors, this plugin should be kept up to date.
+
+* WordPress 6.9 requires Local Twemoji 1.3.1 or later
+* Earlier versions of WordPress require Local Twemoji 1.1.0 or later
+
 ## Installation
 
 Local Twemoji can be installed via the following methods.
