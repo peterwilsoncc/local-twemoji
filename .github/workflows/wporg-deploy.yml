@@ -21,12 +21,14 @@ jobs:
             sudo apt-get install -y subversion
         fi
 
-    - name: Remove readme.md from WordPress.org deploy.
+    - name: Remove unneeded files WordPress.org deploy.
       run: |
         git rm readme.md
+        git rm composer.json
+        git rm composer.lock
         git config --global user.email "10upbot+github@10up.com"
         git config --global user.name "10upbot on GitHub"
-        git commit -m "Remove readme.md for WordPress.org deploy"
+        git commit -m "Remove unneeded files for WordPress.org deploy"
 
     - name: Create .wordpress-org directory if it doesn't exist.
       run: mkdir -p .wordpress-org
