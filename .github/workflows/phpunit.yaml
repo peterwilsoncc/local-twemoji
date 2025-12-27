@@ -21,8 +21,13 @@ jobs:
       DB_PASSWORD: root
     strategy:
       matrix:
-        php-versions: [ '8.0', '8.1', '8.2', '8.3', '8.4' ]
+        php-versions: [ '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
         wp-versions: [ '6.7', '6.8', 'latest', 'trunk' ]
+        exclude:
+          - php-versions: '8.5'
+            wp-versions: '6.7'
+          - php-versions: '8.5'
+            wp-versions: '6.8'
     name: WP ${{ matrix.wp-versions }} / PHP ${{ matrix.php-versions }}
 
     steps:
