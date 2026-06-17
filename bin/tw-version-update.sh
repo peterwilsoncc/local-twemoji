@@ -48,7 +48,7 @@ rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages"
 # Commit the image updates to git
 git add "$SCRIPT_DIR/../images/emoji/svg"
 git add "$SCRIPT_DIR/../images/emoji/72x72"
-git commit -am "Update Twemoji images to version $TWEMOJI_LATEST_RELEASE"
+git commit --allow-empty -am "Update Twemoji images to version $TWEMOJI_LATEST_RELEASE"
 
 # Remove the downloaded directory
 rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE"
