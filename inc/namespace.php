@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const PLUGIN_VERSION  = '1.3.1';
+const PLUGIN_VERSION  = '1.3.2';
 const TWEMOJI_VERSION = '17.0.3';
 
 /**
