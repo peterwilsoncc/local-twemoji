@@ -47,6 +47,13 @@ Version 1.3.1 or higher will be required for full WordPress 6.9 support.
 
 == Changelog ==
 
+= 1.3.2 =
+* Changed: Prevent direct file access.
+* Dev: Download Twemoji images from GitHub now github-proxy.com is deprecated.
+* Dev: Allow empty updates for twemoji images to account for script only updates.
+* Dev: Update to Twemoji 17.0.3 (administrative as there were no image changes in this release).
+* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.3.1...1.3.2)
+
 = 1.3.1 =
 
 * Changed: Add images missed in Twemoji 17.0.2 update.
@@ -62,20 +69,6 @@ Version 1.3.1 or higher will be required for full WordPress 6.9 support.
 * Changed: Update to Twemoji 17.0.1
 * Dev: Modify Twemoji update action.
 * [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.1.0...1.2.0)
-
-= 1.1.0 =
-
-* Initial WordPress.org release
-* Fix: Update Docblocks for accuracy
-* Enh: Add cache busting string to Twemoji images
-* Docs: Add readme and wp.org assets
-* Enh: Add Twemoji Credits page; props wp.org plugin review team
-* Docs: Add Twemoji Credits to readme files; props plugin review team
-* Dev: Update PR template for Twemoji Update action
-* Dev: Add tests for plugin readme headers
-* Dev: Add tests for plugin version number consistency
-* Dev: Add tests for Twemoji version number consistency
-* [Full Changelog](https://github.com/peterwilsoncc/local-twemoji/compare/1.0.0...1.1.0)
 
 = Full changelogs =
 
