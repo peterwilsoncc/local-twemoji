@@ -39,15 +39,30 @@ jobs:
           LATEST_VERSION: ${{ steps.latest-twemoji-version.outputs.latest_version }}
         run: |
           echo "Checking for existing issue";
-          ISSUE_NUMBER=$(gh issue list --search "Update Twemoji to ${LATEST_VERSION}" --json number --jq '.[0].number');
+          ISSUE_NUMBER=$(gh issue list --state all --search "Update Twemoji to ${LATEST_VERSION}" --json number --jq '.[0].number');
+          if [ "$ISSUE_NUMBER" = 'null' ]; then
+            ISSUE_NUMBER='';
+          fi
+
+          ISSUE_UNPLANNED='false';
+          if [ -n "$ISSUE_NUMBER" ]; then
+            ISSUE_UNPLANNED=$(gh issue view "$ISSUE_NUMBER" --json state,stateReason --jq 'if .state == "CLOSED" and .stateReason == "NOT_PLANNED" then "true" else "false" end');
+          fi
+
           echo "Issue number: $ISSUE_NUMBER";
+          echo "Issue closed as not planned: $ISSUE_UNPLANNED";
           # Set the output to the issue number
           echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT;
+          echo "issue_unplanned=${ISSUE_UNPLANNED}" >> $GITHUB_OUTPUT;
 
       - name: Compare versions.
         id: compare-versions
         run: |
-          if [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
+          if [ "${{ steps.check-issue.outputs.issue_unplanned }}" = 'true' ]; then
+            echo "Issue for this version was closed as not planned; skipping update and PR creation.";
+            echo "issue_required=false" >> $GITHUB_OUTPUT;
+            echo "update_required=false" >> $GITHUB_OUTPUT;
+          elif [ "${{ steps.check-issue.outputs.issue_number }}" != '' ]; then
             echo "issue_required=false" >> $GITHUB_OUTPUT;
             echo "update_required=true" >> $GITHUB_OUTPUT;
           elif [ "${{ steps.current-twemoji-version.outputs.current_version }}" != "${{ steps.latest-twemoji-version.outputs.latest_version }}" ]; then
