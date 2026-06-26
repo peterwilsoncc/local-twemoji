@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const PLUGIN_VERSION  = '1.3.1';
-const TWEMOJI_VERSION = '17.0.2.2';
+const TWEMOJI_VERSION = '17.0.3';
 
 /**
  * Bootstrap the plugin.
