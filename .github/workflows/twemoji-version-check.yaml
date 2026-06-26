@@ -39,7 +39,7 @@ jobs:
           LATEST_VERSION: ${{ steps.latest-twemoji-version.outputs.latest_version }}
         run: |
           echo "Checking for existing issue";
-          ISSUE_NUMBER=$(gh issue list --state all --search "Update Twemoji to ${LATEST_VERSION}" --json number --jq '.[0].number');
+          ISSUE_NUMBER=$(gh issue list --state all --limit 1 --search "in:title \"Update Twemoji to ${LATEST_VERSION}\"" --json number --jq '.[0].number');
           if [ "$ISSUE_NUMBER" = 'null' ]; then
             ISSUE_NUMBER='';
           fi
