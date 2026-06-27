@@ -39,8 +39,17 @@ rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip"
 # Optimize and move the SVGs
 npx svgo@4.0.1 --config "$SCRIPT_DIR/svgo-config.js" "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/svg" -o "$SCRIPT_DIR/../images/emoji/svg"
 
+# Optimize PNG images if pngquant is available.
+PNG_SOURCE_DIR="$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/72x72"
+if type pngquant >/dev/null 2>&1; then
+	echo "pngquant found, optimizing PNG images"
+	find "$PNG_SOURCE_DIR" -type f -name '*.png' -type f -exec pngquant --quality=80-95 --skip-if-larger --ext .png --force
+else
+	echo "pngquant not found, skipping PNG optimization"
+fi
+
 # Move the PNG images to the correct directory.
-mv "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/72x72" "$SCRIPT_DIR/../images/emoji/"
+mv "$PNG_SOURCE_DIR" "$SCRIPT_DIR/../images/emoji/"
 
 # Remove the unzipped directory
 rm -rf "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages"
