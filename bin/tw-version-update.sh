@@ -36,8 +36,8 @@ unzip "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip" -d "$SCR
 # Remove the downloaded zip file
 rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip"
 
-# Move the SVG images to the correct directory
-mv "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/svg" "$SCRIPT_DIR/../images/emoji/"
+# Optimize and move the SVGs
+npx svgo@4.0.1 --config "$SCRIPT_DIR/svgo-config.js" "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/svg" -o "$SCRIPT_DIR/../images/emoji/svg"
 
 # Move the PNG images to the correct directory.
 mv "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/72x72" "$SCRIPT_DIR/../images/emoji/"
