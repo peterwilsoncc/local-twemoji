@@ -116,6 +116,14 @@ jobs:
             echo "pr_required=true" >> $GITHUB_OUTPUT;
           fi
 
+      - name: Install PNG optimization tools.
+        id: install-png-optimization
+        if: ${{ steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true' }}
+        run: |
+          echo "Installing PNG optimization tools";
+          sudo apt-get update
+          sudo apt-get install -y pngquant optipng
+
       - name: Run the update script.
         id: run-update
         if: ${{ steps.compare-versions.outputs.update_required == 'true' && steps.check-pr.outputs.pr_required == 'true' }}
