@@ -47,6 +47,17 @@ Version 1.3.1 or higher will be required for full WordPress 6.9 support.
 
 == Changelog ==
 
+= 1.4.0 =
+
+* Changed: Add Emoji 17 to playground preview import.
+* Changed: Optimize images during Twemoji update.
+* Fix: Remove composer files from WordPress.org deployment.
+* Fix: Prevent direct access to PHP files.
+* Dev: Add PHP 8.5 to test suite.
+* Dev: Add WordPress 6.9 to test suite.
+* Dev: Replace deprecated github-proxy.com in update script.
+* Dev: Allow Twemoji update issues to be closed as not planned.
+
 = 1.3.1 =
 
 * Changed: Add images missed in Twemoji 17.0.2 update.
