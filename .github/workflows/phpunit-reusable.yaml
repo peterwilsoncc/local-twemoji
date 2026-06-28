@@ -1,0 +1,52 @@
+name: Reusable PHPUnit
+
+on:
+  workflow_call:
+    inputs:
+      wp-version:
+        description: WordPress version to test
+        required: true
+        type: string
+      php-version:
+        description: PHP version to test
+        required: true
+        type: string
+
+jobs:
+  phpunit:
+    name: WP ${{ inputs.wp-version }} / PHP ${{ inputs.php-version }}
+    runs-on: ubuntu-latest
+    env:
+      DB_DATABASE: wordpress_test
+      DB_USER: root
+      DB_PASSWORD: root
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php-version }}
+
+      - name: Install Subversion
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y subversion
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Composer install
+        run: composer install --optimize-autoloader --prefer-dist
+
+      - name: Install WP Tests
+        run: |
+          sudo /etc/init.d/mysql start
+          bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 ${{ inputs.wp-version }}
+
+      - name: PHPUnit tests
+        run: ./vendor/bin/phpunit
+        env:
+          WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
+          WP_CORE_DIR: ${{ runner.temp }}/wordpress

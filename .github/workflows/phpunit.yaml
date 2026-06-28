@@ -50,7 +50,7 @@ jobs:
               matrix=$(jq \
                 --arg wp "$wp_version" \
                 --arg php "$php_version" \
-                '.include += [{"wp-versions": $wp, "php-versions": $php}]' \
+                '.include += [{"wp-version": $wp, "php-version": $php}]' \
                 <<< "$matrix")
             done
           done
@@ -59,45 +59,14 @@ jobs:
 
   phpunit:
     needs: build-matrix
-    runs-on: ubuntu-latest
-    env:
-      DB_DATABASE: wordpress_test
-      DB_USER: root
-      DB_PASSWORD: root
+    name: WP ${{ matrix.wp-version }} / PHP ${{ matrix.php-version }}
     strategy:
       matrix: ${{ fromJSON(needs.build-matrix.outputs.matrix) }}
-    name: WP ${{ matrix.wp-versions }} / PHP ${{ matrix.php-versions }}
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-
-    - name: Install Subversion.
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y subversion
-
-    - name: Check PHP Version
-      run: php -v
-
-    - name: Composer install
-      run: composer install --optimize-autoloader --prefer-dist
-
-    - name: Install WP Tests
-      run: |
-        sudo /etc/init.d/mysql start
-        bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp-versions }}
-
-    - name: PHPUnit tests
-      run: ./vendor/bin/phpunit
-      env:
-        WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
-        WP_CORE_DIR: ${{ runner.temp }}/wordpress
+      fail-fast: false
+    uses: ./.github/workflows/phpunit-reusable.yaml
+    with:
+      wp-version: ${{ matrix.wp-version }}
+      php-version: ${{ matrix.php-version }}
 
   required-status-checks:
     # This should be configured as the required status check in branch protection rules
@@ -106,7 +75,7 @@ jobs:
     # required status check will not need to be updated when matrix items change.
     name: PHPUnit Required Status Checks
     runs-on: 'ubuntu-24.04'
-    needs: [ 'phpunit' ]
+    needs: [ 'build-matrix', 'phpunit' ]
     if: ${{ always() }}
     steps:
       - name: Detect any failing status checks
