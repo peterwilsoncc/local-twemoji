@@ -13,21 +13,59 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-matrix:
+    name: Build WP/PHP Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        name: Generate matrix JSON
+        shell: bash
+        run: |
+          declare -A wp_php
+          wp_php["trunk"]="7.4 8.0 8.1 8.2 8.3 8.4 8.5"
+          wp_php["7.0"]="7.4 8.0 8.1 8.2 8.3 8.4 8.5"
+          wp_php["6.9"]="7.4 8.0 8.1 8.2 8.3 8.4 8.5"
+          wp_php["6.8"]="7.4 8.0 8.1 8.2 8.3 8.4"
+          wp_php["6.7"]="7.4 8.0 8.1 8.2 8.3 8.4"
+          wp_php["6.6"]="7.4 8.0 8.1 8.2 8.3"
+          wp_php["6.5"]="7.4 8.0 8.1 8.2 8.3"
+          wp_php["6.4"]="7.4 8.0 8.1 8.2 8.3"
+          wp_php["6.3"]="7.4 8.0 8.1 8.2"
+          wp_php["6.2"]="7.4 8.0 8.1 8.2"
+          wp_php["6.1"]="7.4 8.0 8.1 8.2"
+          wp_php["6.0"]="7.4 8.0 8.1"
+
+          matrix='{"include":[]}'
+          mapfile -t wp_versions < <(
+            {
+              printf '%s\n' "${!wp_php[@]}" | grep -x 'trunk' || true
+              printf '%s\n' "${!wp_php[@]}" | grep -vx 'trunk' | sort -rV
+            }
+          )
+
+          for wp_version in "${wp_versions[@]}"; do
+            for php_version in ${wp_php[$wp_version]}; do
+              matrix=$(jq \
+                --arg wp "$wp_version" \
+                --arg php "$php_version" \
+                '.include += [{"wp-versions": $wp, "php-versions": $php}]' \
+                <<< "$matrix")
+            done
+          done
+
+          echo "matrix=$(jq -c . <<< "$matrix")" >> "$GITHUB_OUTPUT"
+
   phpunit:
+    needs: build-matrix
     runs-on: ubuntu-latest
     env:
       DB_DATABASE: wordpress_test
       DB_USER: root
       DB_PASSWORD: root
     strategy:
-      matrix:
-        php-versions: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
-        wp-versions: [ '6.0', '6.1', '6.2', '6.3', '6.4', '6.5', '6.6', '6.7', '6.8', '6.9', 'latest', 'trunk' ]
-        exclude:
-          - php-versions: '8.5'
-            wp-versions: '6.7'
-          - php-versions: '8.5'
-            wp-versions: '6.8'
+      matrix: ${{ fromJSON(needs.build-matrix.outputs.matrix) }}
     name: WP ${{ matrix.wp-versions }} / PHP ${{ matrix.php-versions }}
 
     steps:
