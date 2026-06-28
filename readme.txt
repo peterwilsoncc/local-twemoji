@@ -41,9 +41,13 @@ The Emoji SVG and PNG assets are licensed under the [CC-BY 4.0 License](https://
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+
+WordPress 6.9 or later requires Local Twemoji 1.3.1 or later
+
 = 1.3.1 =
 
-Version 1.3.1 or higher will be required for full WordPress 6.9 support.
+WordPress 6.9 or later requires Local Twemoji 1.3.1 or later
 
 == Changelog ==
 
