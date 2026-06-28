@@ -75,7 +75,7 @@ class Test_Twemoji extends WP_UnitTestCase {
 	public function test_emoji_url_filter() {
 		$actual = get_echo( '_print_emoji_detection_script' );
 		$flags  = 0;
-		if ( version_compare( wp_get_wp_version(), '6.9-alpha', '>=' ) ) {
+		if ( function_exists( 'wp_get_wp_version' ) && version_compare( wp_get_wp_version(), '6.9-alpha', '>=' ) ) {
 			$flags = JSON_HEX_TAG | JSON_UNESCAPED_SLASHES;
 		}
 
