@@ -43,7 +43,7 @@ npx svgo@4.0.1 --config "$SCRIPT_DIR/svgo-config.js" "$SCRIPT_DIR/../images/emoj
 PNG_SOURCE_DIR="$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/72x72"
 if type pngquant >/dev/null 2>&1; then
 	echo "pngquant found, optimizing PNG images"
-	find "$PNG_SOURCE_DIR" -type f -name '*.png' -type f -exec pngquant --quality=80-95 --skip-if-larger --ext .png --force
+	find "$PNG_SOURCE_DIR" -type f -name '*.png' -exec pngquant --quality=80-95 --skip-if-larger --ext .png --force {} \;
 else
 	echo "pngquant not found, skipping PNG optimization"
 fi
