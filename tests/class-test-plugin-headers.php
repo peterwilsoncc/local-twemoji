@@ -176,6 +176,7 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	 * Test that the readme changelog contains only the three most recent entries.
 	 */
 	public function test_readme_changelog_has_three_entries() {
+		//phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Tests.
 		$readme = file_get_contents( __DIR__ . '/../readme.txt' );
 		preg_match( '/== Changelog ==(.*?)= Full changelogs =/s', $readme, $changelog );
 		preg_match_all( '/^= \d+\.\d+\.\d+ =$/m', $changelog[1], $entries );
