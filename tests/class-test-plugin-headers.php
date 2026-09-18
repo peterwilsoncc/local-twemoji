@@ -173,6 +173,17 @@ class Test_Plugin_Headers extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that the readme changelog contains only the three most recent entries.
+	 */
+	public function test_readme_changelog_has_three_entries() {
+		$readme = file_get_contents( __DIR__ . '/../readme.txt' );
+		preg_match( '/== Changelog ==(.*?)= Full changelogs =/s', $readme, $changelog );
+		preg_match_all( '/^= \d+\.\d+\.\d+ =$/m', $changelog[1], $entries );
+
+		$this->assertCount( 3, $entries[0], 'The readme changelog should contain only the three most recent entries.' );
+	}
+
+	/**
 	 * Test that the readme file does not have any forbidden headers.
 	 *
 	 * @dataProvider data_forbidden_readme_headers
