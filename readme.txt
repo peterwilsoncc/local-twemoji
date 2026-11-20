@@ -1,7 +1,7 @@
 === Local Twemoji ===
 Contributors: peterwilsoncc
 Tags: emoji, twemoji, performance
-Tested up to: 7.1
+Tested up to: 7.2
 Stable tag: 1.4.0
 License: MIT
 License URI: https://github.com/peterwilsoncc/local-twemoji/?tab=MIT-1-ov-file
