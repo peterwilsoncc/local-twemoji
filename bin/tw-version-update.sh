@@ -27,14 +27,11 @@ mkdir -p "$SCRIPT_DIR/../images/emoji/"
 
 echo "Updating to version $TWEMOJI_LATEST_RELEASE"
 
-# Download the images from the twemoji project
-curl -L -o "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip" "https://github.com/jdecked/twemoji/archive/refs/heads/gh-pages.zip"
-
-# Unzip the downloaded file
-unzip "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip" -d "$SCRIPT_DIR/../images/emoji/"
-
-# Remove the downloaded zip file
-rm "$SCRIPT_DIR/../images/emoji/twemoji-$TWEMOJI_LATEST_RELEASE.zip"
+# Do a sparse checkout of the twemoji project to get the latest release.
+git clone https://github.com/jdecked/twemoji --branch=gh-pages --depth=1 --sparse "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages"
+cd "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages"
+git sparse-checkout set "v/$TWEMOJI_LATEST_RELEASE"
+cd -
 
 # Optimize and move the SVGs
 npx svgo@4.0.1 --config "$SCRIPT_DIR/svgo-config.js" "$SCRIPT_DIR/../images/emoji/twemoji-gh-pages/v/$TWEMOJI_LATEST_RELEASE/svg" -o "$SCRIPT_DIR/../images/emoji/svg"
